@@ -28,11 +28,10 @@ public class Activator implements BundleActivator {
 		Activator.context = bundleContext;
 		System.out.println("soma bundle iniciado");
 		Dictionary props = new Hashtable();
-        props.put("service.exported.interfaces", "*");
-        props.put("service.exported.configs", "org.apache.cxf.ws");
-//        props.put("osgi.remote.configuration.type", "pojo");
-//        props.put("osgi.remote.configuration.pojo.httpservice.context", "/remoteService");
-        props.put("org.apache.cxf.ws.address", "http://localhost:9090/soma");
+		props.put("service.exported.interfaces", "*");
+	    props.put("service.exported.configs", "org.apache.cxf.ws");
+	    props.put("service.exported.intents", "HTTP");
+	    props.put("org.apache.cxf.ws.address", "http://localhost:9090/soma");
         serviceRegistration = bundleContext.registerService(Soma.class.getName(), new SomaImpl(), props);
 	}
 

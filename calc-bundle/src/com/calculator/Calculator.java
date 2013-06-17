@@ -27,8 +27,8 @@ public class Calculator extends Thread {
 						String[] operandos = input.split("\\+");
 						System.out.println("Somando " + operandos[0] + " + "
 								+ operandos[1]);
-						ServiceReference<Soma> serviceReference = bundleContext
-								.getServiceReference(Soma.class);
+						ServiceReference serviceReference = bundleContext
+								.getServiceReference(Soma.class.getName());
 						if (serviceReference == null) {
 							throw new IllegalArgumentException(
 									"Operação não suportada '+', inicie o serviço para poder utilizalo");

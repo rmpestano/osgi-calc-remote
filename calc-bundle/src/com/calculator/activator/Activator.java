@@ -2,8 +2,11 @@ package com.calculator.activator;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
+import org.osgi.util.tracker.*;
 
 import com.calculator.Calculator;
+import com.calculator.soma.api.Soma;
 
 public class Activator implements BundleActivator {
 
@@ -21,6 +24,20 @@ public class Activator implements BundleActivator {
 	 */
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;
+		ServiceTracker serviceTracker = new ServiceTracker(context, Soma.class.getName(), null) {
+		      @Override
+		      public Object addingService(ServiceReference reference) {
+		        Object result = super.addingService(reference);
+//		        Object svc = context.getService(reference);
+//		        if (svc instanceof Soma) {
+//		          final Soma soma = (Soma) svc;
+//		          System.out.println(soma.sum(666, 1));
+//		        }
+		        //retorna service via serviceDiscovery
+		        return result;
+		      }
+		     };
+		    serviceTracker.open();
 		calculator = new Calculator(bundleContext);
 		calculator.start();
 		System.out.println("Calculator bundle iniciado");
